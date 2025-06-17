@@ -20,13 +20,19 @@ public class CarritoController {
     }
 
     @GetMapping("/{idCarrito}")
-    public Carrito getCarrito(@PathVariable Long idCarrito){
+    public Carrito getCarritoById(@PathVariable Long idCarrito){
         return carritoService.findCarritoById(idCarrito);
     }
 
-    @PostMapping("/{idCarrito}/items")
-    public String addProduct(@PathVariable Long idCarrito,@RequestParam Long idProducto,@RequestParam int cantidad){
+    @PostMapping("/{idCarrito}/productos")
+    public String addProduct(@PathVariable Long idCarrito,@RequestParam Long idProducto){
         carritoService.addProduct(idCarrito, idProducto);
         return "producto agregado";
+    }
+
+    @DeleteMapping("/{idCarrito}/productos/{idProducto}")
+    public String deleteProduct(@PathVariable Long idCarrito,@RequestParam Long idProducto){
+        carritoService.deleteProduct(idCarrito, idProducto);
+        return "producto eliminado";
     }
 }

@@ -7,5 +7,7 @@ public interface ICarritoService {
 
     void addProduct(Long idCarrito, Long idProducto);
 
+    void deleteProduct(Long idCarrito, Long idProducto);
+
     Carrito findCarritoById(Long idCarrito);
 }

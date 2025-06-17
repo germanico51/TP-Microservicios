@@ -21,7 +21,6 @@ public class Carrito {
     private Long id;
     private Double precioTotal;
 
-
     @ElementCollection
     private List<ProductoDTO> productosList;
 }
