@@ -5,6 +5,8 @@ import com.todocodeacademy.ventas_service.model.Venta;
 import com.todocodeacademy.ventas_service.service.IVentaService;
 import com.todocodeacademy.ventas_service.service.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,27 +15,33 @@ import java.util.List;
 @RequestMapping("/ventas")
 public class VentasController {
 
-    @Autowired
-    IVentaService ventaService;
-
-    @PostMapping("/crear")
-    public String createVenta(@RequestParam Long idCarrito){
+    private final IVentaService ventaService;
+    public VentasController(IVentaService ventaService) {
+        this.ventaService = ventaService;
+    }
+    @PostMapping
+    public ResponseEntity<String> createVenta(@RequestParam Long idCarrito) {
         ventaService.save(idCarrito);
-        return "Venta creada";
+        return ResponseEntity.status(HttpStatus.CREATED).body("Venta creada");
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Venta>> getVentas() {
+        return ResponseEntity.ok(ventaService.findAllVentas());
     }
 
     @GetMapping("/{id}")
-    public Venta getVentaById(@RequestParam Long id){
-        return ventaService.findVentaById(id);
+    public ResponseEntity<Venta> getVentaById(@PathVariable Long id) {
+        return ResponseEntity.ok(ventaService.findVentaById(id));
     }
 
     @GetMapping("/{id}/monto")
-    public Double getMontoVenta(@RequestParam Long id){
-        return ventaService.getMontoVenta(id);
+    public ResponseEntity<Double> getMontoVenta(@PathVariable Long id) {
+        return ResponseEntity.ok(ventaService.getMontoVenta(id));
     }
 
     @GetMapping("/{id}/productos")
-    public List<ProductoDTO> getListaProductos(@RequestParam Long id){
-        return ventaService.getProductsByVenta(id);
+    public ResponseEntity<List<ProductoDTO>> getListaProductos(@PathVariable Long id) {
+        return ResponseEntity.ok(ventaService.getProductsByVenta(id));
     }
 }

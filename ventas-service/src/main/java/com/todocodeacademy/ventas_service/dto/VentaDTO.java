@@ -1,19 +1,17 @@
 package com.todocodeacademy.ventas_service.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-@AllArgsConstructor
+import java.time.LocalDateTime;
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-public class CarritoDTO {
-
+public class VentaDTO {
     private Long id;
-    private Double precioTotal;
-    private List<ProductoDTO> productosList;
+    private LocalDateTime fecha;
+    private Long idCarrito;
 }

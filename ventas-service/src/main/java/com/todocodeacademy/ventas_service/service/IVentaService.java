@@ -13,4 +13,6 @@ public interface IVentaService {
     List<ProductoDTO> getProductsByVenta(Long id);
 
     Double getMontoVenta(Long id);
+
+    List<Venta> findAllVentas();
 }

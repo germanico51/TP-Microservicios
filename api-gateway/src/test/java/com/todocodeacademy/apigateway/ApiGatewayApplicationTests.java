@@ -1,4 +1,4 @@
-package com.todocodeacademy.api_gateway;
+package com.todocodeacademy.apigateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

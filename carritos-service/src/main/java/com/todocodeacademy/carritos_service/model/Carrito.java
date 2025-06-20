@@ -9,18 +9,19 @@ import lombok.Setter;
 
 import java.util.List;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Carrito {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double precioTotal;
-
     @ElementCollection
-    private List<ProductoDTO> productosList;
+    private List<Long> productoIds;
+
+
 }

@@ -3,6 +3,8 @@ package com.todocodeacademy.productos_service.controller;
 import com.todocodeacademy.productos_service.model.Producto;
 import com.todocodeacademy.productos_service.service.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,20 +13,25 @@ import java.util.List;
 @RequestMapping("/productos")
 public class ProductoController {
 
-    @Autowired
-    IProductoService prodService;
-    @GetMapping("/get")
-    public List<Producto> getProducts(){
-        return prodService.getProductos();
-    }
-    @GetMapping("/get/{id}")
-    public Producto getProductById(@PathVariable Long id){
-        return prodService.getProductById(id);
+    private final IProductoService prodService;
+
+    public ProductoController(IProductoService prodService) {
+        this.prodService = prodService;
     }
 
-    @PostMapping("/create")
-    public String createProduct(@RequestBody Producto prod){
+    @GetMapping
+    public ResponseEntity<List<Producto>> getProducts() {
+        return ResponseEntity.ok(prodService.getProductos());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Producto> getProductById(@PathVariable Long id) {
+        return ResponseEntity.ok(prodService.getProductById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<String> createProduct(@RequestBody Producto prod) {
         prodService.save(prod);
-        return "producto creado";
+        return ResponseEntity.status(HttpStatus.CREATED).body("Producto creado");
     }
 }

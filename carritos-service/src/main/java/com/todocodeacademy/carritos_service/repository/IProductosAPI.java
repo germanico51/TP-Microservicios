@@ -9,6 +9,6 @@ import java.util.List;
 
 @FeignClient(name = "productos-service")
 public interface IProductosAPI {
-    @GetMapping("/productos/get/{idProd}")
+    @GetMapping("/productos/{idProd}")
     public ProductoDTO getProductoById(@PathVariable("idProd") Long idProd);
 }
